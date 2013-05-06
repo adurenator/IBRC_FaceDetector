@@ -22,7 +22,7 @@ function fs = ComputeFeature(ii_ims, ftype)
 		
 		% calls to a different function (eg. FeatureTypeI or FeatureTypeII or .. ) depending on
 		% the value of ftype(1), that is the value that says which function to call
-		fs(i) = feval(funcs{ftype(1)}, ftype(2), ftype(3), ftype(4), ftype(5));
+		fs(i) = feval(funcs{ftype(1)}, ii_ims{i}, ftype(2), ftype(3), ftype(4), ftype(5));
 		
 	end
 

@@ -9,8 +9,8 @@ function LoadSaveImData(dirname, ni, im_sfn)
 	ii_ims = [];
 	
 	for i = 1:ni,
-		aux    = LoadIm([dirname, face_fnames(fnums(i)).name]);
-		ii_ims = [ii_ims aux(:)];
+		[im, ii_im] = LoadIm([dirname, face_fnames(fnums(i)).name]);
+		ii_ims      = [ii_ims ii_im(:)];
 	
 	end
 	
