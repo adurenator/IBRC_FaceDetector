@@ -14,6 +14,7 @@ function all_ftypes = EnumAllFeatures(W, H)
     all_ftypes = zeros(4*(W*H*W*H), 5);
     
     index = 1;
+    
     % Enumerating all I-type features...
     for w = 1:W-2,
        for h = 1:floor(H/2)-2,
@@ -39,7 +40,7 @@ function all_ftypes = EnumAllFeatures(W, H)
     % Enumerating all III-type features...
     for w = 1:floor(W/3)-2,
        for h = 1:H-2,
-            for x = 2:W-2*w,
+            for x = 2:W-3*w,
                 for y = 2:H-h,
                     all_ftypes(index, :) = [3 x y w h]; index = index + 1;
                 end
