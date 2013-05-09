@@ -1,5 +1,6 @@
 
-function LoadSaveImData(dirname, ni, im_sfn)
+% Return value for debug purposes. It is not meant for use.
+function ii_ims = LoadSaveImData(dirname, ni, im_sfn)
     
 	face_fnames = dir(dirname);
 	aa          = 3:length(face_fnames);
@@ -10,10 +11,9 @@ function LoadSaveImData(dirname, ni, im_sfn)
 	
 	for i = 1:ni,
 		[im, ii_im] = LoadIm([dirname, face_fnames(fnums(i)).name]);
-		ii_ims      = [ii_ims ii_im(:)];
-	
-	end
-	
+		ii_ims      = [ii_ims; ii_im(:)'];
+    end
+    
 	save(im_sfn, 'dirname', 'fnums', 'ii_ims');
 
 end

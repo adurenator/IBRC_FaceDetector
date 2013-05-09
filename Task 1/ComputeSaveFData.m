@@ -1,5 +1,6 @@
 
-function ComputeSaveFData(all_ftypes, f_sfn)
+% Return value for debug purposes. It is not meant for use.
+function fmat = ComputeSaveFData(all_ftypes, f_sfn)
 	
 	W = 19;
 	H = 19;

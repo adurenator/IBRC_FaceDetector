@@ -2,7 +2,7 @@
 clear;
 clc;
 
-%% 8: ComputeFeature WRONG %%
+%% 8: ComputeFeature OK %%
 
 im_fnames = dir('TrainingImages/FACES/');
 im_fnames = im_fnames(3:103);
@@ -16,7 +16,7 @@ end
 
 dinfo3    = load('DebugInfo/debuginfo3.mat');
 ftype     = dinfo3.ftype;
-funct_8   = round(sum(abs(dinfo3.fs - ComputeFeature(ii_ims, ftype)) > eps))
+funct_8   = round(sum(abs(dinfo3.fs - ComputeFeature(ii_ims, ftype))))
 
 
 %% 9: VecBoxSum OK %%
@@ -41,6 +41,7 @@ funct_10  = round(sum(abs(A2 - A1)))
 
 %% 11: VecAllFeatures ?? %%
 
+% nothing to debug. This function relies on others
 
 
 %% 12: VecComputeFeature OK %%
@@ -64,13 +65,31 @@ fs2      = ComputeFeature(ii_ims1, all_ftypes(1, :));
 funct_12 = round(sum(abs(fs2' - fs1)))
 
 
-%% 13: LoadSaveImData %%
+%% 13: LoadSaveImData OK %%
+
+ni      = 100;
+dirname = 'TrainingImages/FACES/';
+im_sfn  = 'FaceData.mat';
+LoadSaveImData(dirname, ni, im_sfn);
+disp('Func_13 done');
 
 
+%% 14: ComputeSaveFData OK %%
 
-%% 14: ComputeSaveFData %%
+dinfo4     = load('DebugInfo/debuginfo4.mat');
+ni         = dinfo4.ni;
+all_ftypes = dinfo4.all_ftypes;
+im_sfn     = 'FaceData.mat';
+f_sfn      = 'FeaturesToMat.mat';
+rng(dinfo4.jseed);
+
+ii_ims = LoadSaveImData(dirname, ni, im_sfn);
+fmat   = ComputeSaveFData(all_ftypes, f_sfn);
+
+funct_14 = round(sum(sum(abs(fmat - dinfo4.fmat))))
+funct_14 = round(sum(sum(abs(ii_ims - dinfo4.ii_ims))))
 
 
+%% 15: GetTrainingData OK %%
 
-%% 15: GetTrainingData %%
-
+% nothing to debug in this funct
