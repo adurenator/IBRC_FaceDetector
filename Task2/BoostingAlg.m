@@ -17,18 +17,14 @@ Idata = [Fdata.ii_ims; NFdata.ii_ims] * FTdata.fmat(:, 1:Nft);
 nf = size(Fdata.ii_ims, 1);
 % number of non-faces
 nnf = size(NFdata.ii_ims, 1);
-% number of feature vectors
-%n = nf + nnf;
-% size of each feature vector
-%N = size(Idata, 2);
 
 % feature vector labels
 labels = [ones(nf, 1); zeros(nnf, 1)];
 
 % Initialize the weights
 ws = zeros(size(labels));
-ws(labels==0) = 1/(2*nnf);
-ws(labels==1) = 1/(2*nf);
+ws(labels==0) = 1/(50*nnf);
+ws(labels==1) = 1/(50*nf);
 
 % initialize the thetas of the strong classifier
 Cparams.Thetas = zeros(T, 3);
@@ -38,9 +34,9 @@ for t = 1:T
    % Normalize the n weights so they sum up to one
    ws(:) = ws(:)/sum(ws(:));
    Err = Inf;
-   Theta = 0;
-   P = 0;
-   J = 0;
+   %Theta = 0;
+   %P = 0;
+   J = 1;
    
    % loop over each feature
    for j = 1:Nft
@@ -63,12 +59,11 @@ for t = 1:T
    end
    
    % Update the weights
-   beta = err/(1 - err);
-   ws(:) = ws(:).*beta.^(1 - abs((Idata(:, J)*P < P*Theta) - labels(:)));
+   beta = Err/(1 - Err);
+   ws = ws .* (beta .^ (1 - abs(((Idata(:, J) * P) < (P * Theta)) - labels)));
    Cparams.alphas(t) = log(1 / beta);
 end
 
 Cparams.fmat = FTdata.fmat;
-Cparams.all_ftypes = 0;
 
 end

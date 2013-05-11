@@ -1,7 +1,7 @@
 
 clear;
 clc;
-%{
+%%{
 dinfo5     = load('DebugInfo/debuginfo5.mat');
 np         = dinfo5.np;
 nn         = dinfo5.nn;
