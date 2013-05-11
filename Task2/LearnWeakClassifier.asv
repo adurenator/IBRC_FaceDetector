@@ -1,0 +1,36 @@
+
+function [theta, p, err] = LearnWeakClassifier(ws, fs, ys)
+
+    pos = find(ys ~= 0);
+    neg = find(ys == 0);
+    
+    % positive features
+    pf = fs(pos);
+    % negative features
+    nf = fs(neg);
+    
+    % positive weights
+    pw = ws(pos);
+    % negative weights
+    ng = ws(neg);
+    
+    % positive labels
+    py = ys(pos);
+    % negative labels
+    ny = ys(neg);
+    
+    % weighted mean for positive examples
+    p_mean = sum(pw .* pf .* py) / sum();
+    % weighted mean for negative examples
+    n_mean = ;
+    
+    % threshold
+    theta = 0.5 * (p_mean + n_mean);
+    
+    % error parity -1
+    
+    % error parity 1
+    
+    
+    
+end
