@@ -14,9 +14,9 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T, Nft)
 Idata = [Fdata.ii_ims; NFdata.ii_ims] * FTdata.fmat(:, 1:Nft);
 
 % number of faces
-nf = size(Fdata.ii_ims, 1);
+nf = length(Fdata.fnums);
 % number of non-faces
-nnf = size(NFdata.ii_ims, 1);
+nnf = length(NFdata.fnums);
 % number of feature vectors
 %n = nf + nnf;
 % size of each feature vector
@@ -53,7 +53,7 @@ for t = 1:T
       
       % Update the parameters if the error is a new minimum
       if err < Err
-          Cparams.Thetas(t, :) = [j, theta, p];
+          Cparams.Thetas(t, :) = [j, p, theta];
           Theta = theta;
           P = p;
           J = j;
