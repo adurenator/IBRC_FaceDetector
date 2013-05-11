@@ -63,7 +63,7 @@ for t = 0:T
    Cparams.alphas(t) = log(1/beta);
 end
 
-Cparams.fmat = 0;
+Cparams.fmat = FTdata.fmat;
 Cparams.all_ftypes = 0;
 
 end
