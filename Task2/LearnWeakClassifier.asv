@@ -1,0 +1,27 @@
+
+function [theta, p, err] = LearnWeakClassifier(ws, fs, ys, j)
+
+    feature = fs(:, j);
+    aux     = ws .* feature;
+    aux1    = (1 - ys);
+    
+    % weighted mean for positive examples
+    p_mean = (aux' * ys) / (ws' * ys);
+   
+    % weighted mean for negative examples
+    n_mean = (aux' * aux1) / (ws' * aux1);
+    
+    % threshold
+    theta = 0.5 * (p_mean + n_mean);
+    
+    aux2 = ys - ((-1 * feature) < (-1 * theta))
+    aux3 = 
+    
+    % error parity -1
+    err_1 = ;
+    
+    % error parity 1
+    err1 = ;
+    
+    
+end
