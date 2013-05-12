@@ -7,7 +7,7 @@ function dets = ScanImageFixedSize(Cparams, im)
     end
     
     % Normalize the image
-    im = (image - mean(image(:))) / (std(image(:)) + (10^-12));
+    im = (im - mean(im(:))) / (std(image(:)) + (10^-12));
     
     % Integral image
     ii_im = cumsum(cumsum(im, 1), 2);
@@ -15,6 +15,21 @@ function dets = ScanImageFixedSize(Cparams, im)
     % Sub-window size
     L = 19;
     
-    for i = 1:size(ii_im, 1),
+    % sub-wimdows index limits
+    row = size(ii_im, 1) - (L - 1);
+    col = size(ii_im, 2) - (L - 1);
+    
+    % Checking all sub-windows
+    for i = 1:row,
+        for j = 1:col,
+            
+            sc = ApplyDetector2(Cparams, ii_im, col, row);
+            if sc > Cparams.thresh
+                detection = [col row L L];
+                dets = [dets; detection];
+            end
+            
+        end 
+    end
 
 end

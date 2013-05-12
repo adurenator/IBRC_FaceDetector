@@ -11,7 +11,7 @@
 %                         the one that not.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [allFnames, allNFnames]= ComputeROC(Cparams, Fdata, NFdata)
+function Cparams = ComputeROC(Cparams, Fdata, NFdata)
 
     % 1 - Get test images
     allFfiles = dir(Fdata.dirname);     allFnames = {allFfiles.name};
@@ -41,7 +41,7 @@ function [allFnames, allNFnames]= ComputeROC(Cparams, Fdata, NFdata)
     scImages = [scFtestImages scNFtestImages];
     
     % 3 - Compute true and false positive rates.
-    granularity = 0.1; tpr = []; fpr = [];
+    granularity = 0.1; tpr = []; fpr = []; thr = [];
     for threshold=min(scImages):granularity:max(scImages),
         
         facesInFset = scFtestImages > threshold;
@@ -63,8 +63,9 @@ function [allFnames, allNFnames]= ComputeROC(Cparams, Fdata, NFdata)
     sortedTpr = tpr(rowOrder);
     sortedThr = thr(rowOrder);
     
-    TprI = find(sortedTpr > 0.7, 1, 'first');
-    Cparams.thresh = sortedThr(TprI(1));
+    % getting the threshold that gives a True positiver
+    TprI       = find(sortedTpr > 0.7, 1, 'first');
+    Cparams.thresh = sortedThr(TprI(1))
     
     plot(sortedFpr, sortedTpr);
     

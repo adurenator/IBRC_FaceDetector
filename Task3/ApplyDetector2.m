@@ -1,7 +1,7 @@
 
-function sc = ApplyDetector2(Cparams, ii_im, x, y)
+function sc = ApplyDetector2(Cparams, ii_im, x, y, W, H)
     
-    ii_im = ii_im(y:y + 18, x:x + 18);
+    ii_im = ii_im(y:y + (H - 1), x:x + (W - 1));
     
     a = Cparams.alphas;
     t = Cparams.Thetas; % each row [j, theta, p]
