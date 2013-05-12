@@ -1,0 +1,20 @@
+
+function dets = ScanImageFixedSize(Cparams, im)
+
+    % detect whether the image is grayscale
+    if ndim(im) > 2
+        im = rgb2gray(im);
+    end
+    
+    % Normalize the image
+    im = (image - mean(image(:))) / (std(image(:)) + (10^-12));
+    
+    % Integral image
+    ii_im = cumsum(cumsum(im, 1), 2);
+    
+    % Sub-window size
+    L = 19;
+    
+    for i = 1:size(ii_im, 1),
+
+end

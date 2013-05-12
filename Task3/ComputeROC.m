@@ -11,7 +11,7 @@
 %                         the one that not.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [allFnames, allNFnames]= ComputeROC(Cparams, Fdata, NFdata, FTdata)
+function [allFnames, allNFnames]= ComputeROC(Cparams, Fdata, NFdata)
 
     % 1 - Get test images
     allFfiles = dir(Fdata.dirname);     allFnames = {allFfiles.name};
@@ -21,9 +21,9 @@ function [allFnames, allNFnames]= ComputeROC(Cparams, Fdata, NFdata, FTdata)
     
     testFimages = allFnames; testNFimages = allNFnames;
     for i=1:length(Fdata.fnums), testFimages{Fdata.fnums(i)} = ''; end
-    testFimages = setDiff(testFimages, '');
+    testFimages = setdiff(testFimages, '');
     for i=1:length(NFdata.fnums), testNFimages{NFdata.fnums(i)} = ''; end
-    testNFimages = setDiff(testNFimages, '');
+    testNFimages = setdiff(testNFimages, '');
     
     % 2 - Apply detector to each test image.
     scFtestImages = zeros(1, length(testFimages));
@@ -31,11 +31,11 @@ function [allFnames, allNFnames]= ComputeROC(Cparams, Fdata, NFdata, FTdata)
     
     for i=2:length(testFimages),
         [im, ii_im] = LoadIm(testFimages{i});
-        scFtestImages(i) = ApplyDetector(Cparams, ii_im, size(FTdata.fmat, 2));
+        scFtestImages(i) = ApplyDetector(Cparams, ii_im);
     end
     for i=2:length(testNFimages),
         [im, ii_im] = LoadIm(testNFimages{i});
-        scNFtestImages(i) = ApplyDetector(Cparams, ii_im, size(FTdata.fmat, 2));
+        scNFtestImages(i) = ApplyDetector(Cparams, ii_im);
     end
     
     scImages = [scFtestImages scNFtestImages];
@@ -53,13 +53,18 @@ function [allFnames, allNFnames]= ComputeROC(Cparams, Fdata, NFdata, FTdata)
         falseNegatives = sum(facesInFset(:)==0);
         
         tpr = [tpr truePositives/(truePositives+falseNegatives)];
-        fpr = [fpr falsePositives/(trueNegatives+falsePositives)];  
+        fpr = [fpr falsePositives/(trueNegatives+falsePositives)];
+        thr = [thr threshold];
         
     end
     
     % 4 - Plot the ROC curve
     [sortedFpr, rowOrder] = sort(fpr);
     sortedTpr = tpr(rowOrder);
+    sortedThr = thr(rowOrder);
+    
+    TprI = find(sortedTpr > 0.7, 1, 'first');
+    Cparams.thresh = sortedThr(TprI(1));
     
     plot(sortedFpr, sortedTpr);
     
