@@ -1,10 +1,10 @@
 
-function sc = ApplyDetector(Cparams, ii_im, Nft)
+function sc = ApplyDetector(Cparams, ii_im)
     
     sc = 0;
     a = Cparams.alphas;
     t = Cparams.Thetas; % each row [j, theta, p]
-    F = ii_im(:)' * Cparams.fmat(:, 1:Nft);
+    F = ii_im(:)' * Cparams.fmat(:, 1:Cparams.numFeatures);
     
     for i = 1:size(t, 1),
         

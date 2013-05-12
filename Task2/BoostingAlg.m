@@ -64,6 +64,7 @@ for t = 1:T
    Cparams.alphas(t) = log(1 / beta);
 end
 
-Cparams.fmat = FTdata.fmat;
+Cparams.fmat        = FTdata.fmat;
+Cparams.numFeatures = Nft;
 
 end
