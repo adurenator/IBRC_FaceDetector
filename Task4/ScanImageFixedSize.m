@@ -17,17 +17,18 @@ function dets = ScanImageFixedSize(Cparams, im)
     H = 19;
     
     % sub-wimdows index limits
-    row = size(ii_im, 1) - (H - 1);
-    col = size(ii_im, 2) - (W - 1);
+    row = size(im, 1) - (H - 1);
+    col = size(im, 2) - (W - 1);
     
     dets = [];
     % Checking all sub-windows
     for i = 1:row,
+        i
         for j = 1:col,
             
-            sc = ApplyDetector2(Cparams, ii_im, col, row, W, H);
+            sc = ApplyDetector2(Cparams, ii_im, j, i, W, H);
             if sc > Cparams.thresh
-                detection = [col row W H];
+                detection = [j i W H];
                 dets = [dets; detection];
             end
             

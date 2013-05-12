@@ -66,6 +66,5 @@ end
 
 Cparams.fmat        = FTdata.fmat;
 Cparams.numFeatures = Nft;
-Cparams.thresh      = 0;
 
 end
