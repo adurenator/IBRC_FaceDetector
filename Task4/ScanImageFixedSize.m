@@ -20,19 +20,43 @@ function dets = ScanImageFixedSize(Cparams, im)
     row = size(im, 1) - (H - 1);
     col = size(im, 2) - (W - 1);
     
-    dets = [];
+    % pseudo fmat
+    pfmat = sparse(Cparams.fmat(:, 1:Cparams.numFeatures));
+    
+    a = Cparams.alphas;
+    t = Cparams.Thetas; % each row [j, theta, p]
+    
+    dets = zeros(row * col, 4);
+    index = 1;
     % Checking all sub-windows
     for i = 1:row,
-        i
+        100 * i / row
         for j = 1:col,
             
-            sc = ApplyDetector2(Cparams, ii_im, j, i, W, H);
+            %sc = ApplyDetector2(Cparams, ii_im, j, i, W, H);
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            
+            ii_im1 = ii_im(i:i + (H - 1), j:j + (W - 1));
+            F      = ii_im1(:)' * pfmat;
+            sc     = 0;
+    
+            for k = 1:size(t, 1),
+
+                sc = sc + (a(k) * ((t(k, 3) * F(t(k, 1))) < (t(k, 3) * t(k, 2))));
+
+            end
+
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            
             if sc > Cparams.thresh
                 detection = [j i W H];
-                dets = [dets; detection];
+                dets(index, :) = detection(:);
+                index = index + 1;
             end
             
         end 
     end
+    
+    dets = dets(1:index-1, :);
 
 end

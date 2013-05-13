@@ -14,7 +14,7 @@ function [theta, p, err] = LearnWeakClassifier(ws, fs, ys, j)
     % threshold
     theta = 0.5 * (p_mean + n_mean);
     
-    aux2 = abs(ys - ((-1 * feature) < (-1 * theta)));
+    aux2 = abs(ys - (-feature < -theta));
     aux3 = abs(ys - (feature < theta));
     
     % error parity -1

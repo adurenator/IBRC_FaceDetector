@@ -11,7 +11,7 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T, Nft)
 
 % all image data
 % TODO
-Idata = [Fdata.ii_ims; NFdata.ii_ims] * sparse(FTdata.fmat(:, 1:Nft));
+Idata = [Fdata.ii_ims; NFdata.ii_ims] * FTdata.fmat(:, 1:Nft);
 
 % number of faces
 nf = size(Fdata.ii_ims, 1);
