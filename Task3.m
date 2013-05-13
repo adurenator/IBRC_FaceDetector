@@ -17,4 +17,6 @@ Cparams = BoostingAlg(Fdata, NFdata, FTdata, T, size(FTdata.fmat, 2));
 % Computing ROC to determine Threshold
 Cparams = ComputeROC(Cparams, Fdata, NFdata);
 
-save('Cparams.mat', 'Cparams');
+
+
+%save('Cparams.mat', 'Cparams');

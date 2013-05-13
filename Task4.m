@@ -1,5 +1,7 @@
 
 % Task 4
+clear;
+clc;
 
 Fdata   = load('FaceData.mat');
 NFdata  = load('NonFaceData.mat');
@@ -17,5 +19,4 @@ dets        = ScanImageFixedSize(Cparams, im)
 % Debug code for DisplayDetections ===> ??
 [im, ii_im] = LoadIm('TestImages/one_chris.png');
 dets        = ScanImageFixedSize(Cparams, im);
-disp('milestone');
-DisplayDetections(im, dets);
+DisplayDetections(im, PruneDetections(dets));
