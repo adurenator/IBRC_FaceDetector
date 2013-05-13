@@ -2,6 +2,7 @@
 % Task 4
 clear;
 clc;
+clf;
 
 Fdata   = load('FaceData.mat');
 NFdata  = load('NonFaceData.mat');
@@ -17,6 +18,12 @@ dets        = ScanImageFixedSize(Cparams, im)
 
 
 % Debug code for DisplayDetections ===> ??
+col_im = imread('TestImages/one_chris.png');
 [im, ii_im] = LoadIm('TestImages/one_chris.png');
 dets        = ScanImageFixedSize(Cparams, im);
-DisplayDetections(im, PruneDetections(dets));
+
+% Display the image and the detections
+imshow(col_im)
+axis equal
+DisplayDetections(dets, 'r', 1);
+DisplayDetections(PruneDetections(dets), 'g', 2);
