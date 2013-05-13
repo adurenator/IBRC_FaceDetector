@@ -14,7 +14,7 @@ scale = min_s : step_s : max_s;
 
 dets = [];
 for s = scale
-    dets = [dets; ScanImageFixedSize(Cparams, resize(im, s))];
+    dets = [dets; ScanImageFixedSize(Cparams, imresize(im, s))];
 end
 
 end
