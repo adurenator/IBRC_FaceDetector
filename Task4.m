@@ -18,11 +18,11 @@ dets        = ScanImageFixedSize(Cparams, im)
 
 
 % Debug code for DisplayDetections ===> ??
-image_name = 'TestImages/facepic2.jpg'
+image_name = 'TestImages/one_chris.png'
 col_im = imread(image_name);
 [im, ii_im] = LoadIm(image_name);
-dets        = ScanImageOverScale(Cparams, im, 0.6, 1.3, 0.06);
-%dets        = ScanImageFixedSize(Cparams, im);
+%dets        = ScanImageOverScale(Cparams, im, 0.6, 1.3, 0.06);
+dets        = ScanImageFixedSize(Cparams, im);
 
 % Display the image and the detections
 imshow(col_im)

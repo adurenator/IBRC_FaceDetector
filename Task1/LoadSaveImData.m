@@ -1,6 +1,5 @@
 
-% Return value for debug purposes. It is not meant for use.
-function ii_ims = LoadSaveImData(dirname, ni, im_sfn)
+function LoadSaveImData(dirname, ni, im_sfn)
     
 	face_fnames = dir(dirname);
 	aa          = 3:length(face_fnames);
