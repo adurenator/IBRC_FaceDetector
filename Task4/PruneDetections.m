@@ -30,6 +30,7 @@ end
 % Calculate the average bounding box for each component
 for i = 1:S
     fdets(i, :) = fdets(i, :) / sum(C==i);
+    fdets(i, 3:4) = fdets(i, 3:4) - fdets(i, 1:2);
 end
 
 end

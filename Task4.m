@@ -18,7 +18,5 @@ dets        = ScanImageFixedSize(Cparams, im)
 
 % Debug code for DisplayDetections ===> ??
 [im, ii_im] = LoadIm('TestImages/one_chris.png');
-profile on
 dets        = ScanImageFixedSize(Cparams, im);
-profile viewer
 DisplayDetections(im, PruneDetections(dets));
