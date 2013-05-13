@@ -18,14 +18,15 @@ dets        = ScanImageFixedSize(Cparams, im)
 
 
 % Debug code for DisplayDetections ===> ??
-image_name = 'TestImages/one_chris.png'
-col_im = imread(image_name);
-[im, ii_im] = LoadIm(image_name);
-%dets        = ScanImageOverScale(Cparams, im, 0.6, 1.3, 0.06);
-dets        = ScanImageFixedSize(Cparams, im);
+image_name = 'TestImages/one_chris.png';
+im = imread(image_name);
+profile on
+dets        = ScanImageOverScale(Cparams, im, 0.6, 1.3, 0.06);
+%dets        = ScanImageFixedSize(Cparams, im);
+profile viewer
 
 % Display the image and the detections
-imshow(col_im)
+imshow(im)
 axis equal
 DisplayDetections(dets, 'r', 1);
 DisplayDetections(PruneDetections(dets), 'g', 2);

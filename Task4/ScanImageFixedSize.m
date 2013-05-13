@@ -6,13 +6,16 @@ function dets = ScanImageFixedSize(Cparams, im)
         im = double(rgb2gray(im));
     end
     
+    ii_im  = cumsum(cumsum(im, 1), 2);
+    ii_im2 = cumsum(cumsum(im .* im, 1), 2);
+    
     % Sub-window size
-    W  = 19;
-    H  = 19;
+    L  = 19;
+    L2 = L * L;
     
     % sub-wimdows index limits
-    row = size(im, 1) - (H - 1);
-    col = size(im, 2) - (W - 1);
+    row = size(im, 1) - (L - 1);
+    col = size(im, 2) - (L - 1);
     
     % sparse fmat
     sfmat = sparse(Cparams.fmat(:, 1:Cparams.numFeatures));
@@ -26,34 +29,34 @@ function dets = ScanImageFixedSize(Cparams, im)
     index = 0;
     
     % Checking all sub-windows
-    for i = 1:row,
-        for j = 1:col,
+    for i = 2:row,
+        for j = 2:col,
             
             % INLINE: ApplyDetector2
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             
             % Getting the sub-window
-            ii1    = im(i:i + (H - 1), j:j + (W - 1));
+            ii1    = im(i:i + (L - 1), j:j + (L - 1));
+            
             % Normalize it
-            ii1    = (ii1 - mean(ii1(:))) / (std(ii1(:)) + (10^-12));
+            mu    = ComputeBoxSum(ii_im, j, i, L, L) / L2;
+            sigma = sqrt((ComputeBoxSum(ii_im2, j, i, L, L) - (L2 * mu * mu)) / (L2 - 1));
+            ii1   = (ii1 - mu) / (sigma + (10^-12));
+            
             % Integral image of it
             ii_im1 = cumsum(cumsum(ii1, 1), 2);
+            
             % Compute features for the sub-window
             F      = ii_im1(:)' * sfmat;
-            sc     = 0;
             
             % Getting the score
-            for k = 1:size(t, 1),
-                
-                sc = sc + (a(k) * ((t(k, 3) * F(t(k, 1))) < (t(k, 3) * t(k, 2))));
-
-            end
+            sc = a' * ((t(:, 3) .* F(t(:, 1))') < (t(:, 3) .* t(:, 2)));
 
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             
             if sc > Cparams.thresh
                 index          = index + 1;
-                detection      = [j i W H];
+                detection      = [j i L L];
                 dets(index, :) = detection(:);
             end
             
