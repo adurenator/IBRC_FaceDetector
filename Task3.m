@@ -19,6 +19,12 @@ profile viewer
 % Computing ROC to determine Threshold
 %Cparams = ComputeROC(Cparams, Fdata, NFdata);
 
+%{
+Thetas      = Cparams.Thetas;
+alphas      = Cparams.alphas;
+fmat        = Cparams.fmat;
+numFeatures = Cparams.numFeatures;
+thresh      = Cparams.thresh;
 
-
-%save('Cparams.mat', 'Cparams');
+save('Cparams.mat', 'Thetas', 'alphas', 'fmat', 'numFeatures', 'thresh');
+%}
