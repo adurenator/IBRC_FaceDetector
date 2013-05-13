@@ -9,15 +9,16 @@ NFdata  = load('NonFaceData.mat');
 FTdata  = load('FeaturesToUse.mat');
 Cparams = load('Cparams.mat');
 
-
 % Debug code for ScanImageFixedSize ===> OK
 % value of orig should be the same as the last of dets
 [im, ii_im] = LoadIm('TrainingImages/FACES/face00001.bmp');
 orig        = ApplyDetector(Cparams, ii_im);
 dets        = ScanImageFixedSize(Cparams, im);
 
-% Debug code for DisplayDetections ===> ??
-image_name = 'TestImages/one_chris.png';
+% Debug code for DisplayDetections ===> OK
+% (using a threshold of 8)
+Cparams.thresh = 8;
+image_name = 'TestImages/big_one_chris.png';
 im = imread(image_name);
 profile on
 dets        = ScanImageOverScale(Cparams, im, 0.6, 1.3, 0.06);
