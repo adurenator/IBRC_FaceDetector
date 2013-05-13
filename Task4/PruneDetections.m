@@ -22,6 +22,16 @@ end
 [S, C] = graphconncomp(sparse(D));
 
 % Order the rectangles by components
+fdets = [Inf*ones(S, 2) zeros(S, 2)];
+% Calculate the average bounding box for each component
+for i = 1:S
+    fdets(i, 1:2) = [min(dets(:, 1)) min(dets(:, 2))];
+    fdets(i, 3:4) = [max(dets(:, 1) + dets(:, 3))-fdets(i, 1)
+                     max(dets(:, 2) + dets(:, 4))-fdets(i, 2)];
+end
+
+%{
+% Order the rectangles by components
 fdets = zeros(S, 4);
 for i = 1:nd
     fdets(C(i), 1:2) = fdets(C(i), 1:2) + dets(i, 1:2);
@@ -32,5 +42,6 @@ for i = 1:S
     fdets(i, :) = fdets(i, :) / sum(C==i);
     fdets(i, 3:4) = fdets(i, 3:4) - fdets(i, 1:2);
 end
+%}
 
 end

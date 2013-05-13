@@ -13,9 +13,8 @@ Cparams = load('Cparams.mat');
 % Debug code for ScanImageFixedSize ===> OK
 % value of orig should be the same as the last of dets
 [im, ii_im] = LoadIm('TrainingImages/FACES/face00001.bmp');
-orig        = ApplyDetector(Cparams, ii_im)
-dets        = ScanImageFixedSize(Cparams, im)
-
+orig        = ApplyDetector(Cparams, ii_im);
+dets        = ScanImageFixedSize(Cparams, im);
 
 % Debug code for DisplayDetections ===> ??
 image_name = 'TestImages/one_chris.png';
