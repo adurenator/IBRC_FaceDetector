@@ -29,8 +29,8 @@ function dets = ScanImageFixedSize(Cparams, im)
     index = 0;
     
     % Checking all sub-windows
-    for i = 2:row,
-        for j = 2:col,
+    for i = 2:3:row,
+        for j = 2:3:col,
             
             % INLINE: ApplyDetector2
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
