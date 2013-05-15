@@ -20,13 +20,16 @@ dets        = ScanImageFixedSize(Cparams, im);
 Cparams.thresh = 8;
 image_name = 'TestImages/big_one_chris.png';
 im = imread(image_name);
-profile on
+%profile on
 dets        = ScanImageOverScale(Cparams, im, 0.6, 1.3, 0.06);
 %dets        = ScanImageFixedSize(Cparams, im);
-profile viewer
+%profile viewer
 
 % Display the image and the detections
 imshow(im)
 axis equal
 DisplayDetections(dets, 'r', 1);
-DisplayDetections(PruneDetections(dets), 'g', 2);
+pdets = PruneDetections(dets, 'bounding-box');
+DisplayDetections(pdets, 'g', 1);
+pdets = PruneDetections(dets, 'average');
+DisplayDetections(pdets, 'b', 2, 'text');
