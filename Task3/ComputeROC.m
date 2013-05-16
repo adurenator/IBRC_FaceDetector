@@ -19,10 +19,19 @@ function Cparams = ComputeROC(Cparams, Fdata, NFdata)
     allNFfiles = dir(NFdata.dirname);   allNFnames = {allNFfiles.name};
     allNFnames = {allNFnames{3:length(allNFnames)}};
     
-    testFimages = allFnames; testNFimages = allNFnames;
-    for i=1:length(Fdata.fnums), testFimages{Fdata.fnums(i)} = ''; end
+    testFimages = allFnames;
+    testNFimages = allNFnames;
+    
+    for i=1:length(Fdata.fnums),
+        testFimages{Fdata.fnums(i)} = '';
+    end
+    
     testFimages = setdiff(testFimages, '');
-    for i=1:length(NFdata.fnums), testNFimages{NFdata.fnums(i)} = ''; end
+    
+    for i=1:length(NFdata.fnums),
+        testNFimages{NFdata.fnums(i)} = '';
+    end
+    
     testNFimages = setdiff(testNFimages, '');
     
     % 2 - Apply detector to each test image.
@@ -64,7 +73,7 @@ function Cparams = ComputeROC(Cparams, Fdata, NFdata)
     sortedThr = thr(rowOrder);
     
     % getting the threshold that gives a True positiver
-    TprI       = find(sortedTpr > 0.7, 1, 'first');
+    TprI       = find(sortedTpr > 0.9, 1, 'first');
     Cparams.thresh = sortedThr(TprI(1))
     
     plot(sortedFpr, sortedTpr);

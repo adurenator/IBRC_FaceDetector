@@ -22,8 +22,8 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T, Nft)
 
     % Initialize the weights
     ws = zeros(size(labels));
-    ws(labels == 0) = 1/(50 * nnf);
-    ws(labels == 1) = 1/(50 * nf);
+    ws(labels == 0) = 1/(2 * nnf);
+    ws(labels == 1) = 1/(2 * nf);
 
     % initialize the thetas of the strong classifier
     Cparams.Thetas = zeros(T, 3);
@@ -34,7 +34,7 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T, Nft)
        ws(:) = ws(:) / sum(ws(:));
        Err   = Inf;
        J     = 1;
-
+        fprintf('%d / %d \n', t, T);
        % loop over each feature
        for j = 1:Nft
 
