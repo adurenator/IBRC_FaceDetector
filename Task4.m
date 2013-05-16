@@ -20,15 +20,15 @@ Cparams  = load('Cparams.mat');
 image_name = 'TestImages/IMG_0184.jpg';
 im = imread(image_name);
 %profile on
-dets        = ScanImageOverScale(Cparams, FTdata, im, 0.2, 1.0, 0.04);
+dets        = ScanImageOverScale(Cparams, FTdata, im, 0.2, 1.3, 0.04);
 %dets        = ScanImageFixedSize(Cparams, FTdata, im);
 %profile viewer
 
 % Display the image and the detections
 imshow(im)
 axis equal
-DisplayDetections(dets, 'r', 1);
+%DisplayDetections(dets, 'r', 1);
 pdets = PruneDetections(dets, 'bounding-box');
-DisplayDetections(pdets, 'g', 1);
+DisplayDetections(pdets, 'g', 1, 'text');
 %pdets = PruneDetections(dets, 'average');
 %DisplayDetections(pdets, 'b', 2, 'text');

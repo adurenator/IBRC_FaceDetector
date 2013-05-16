@@ -19,12 +19,12 @@ Cparams = BoostingAlg(Fdata, NFdata, FTdata, 100, size(FTdata.fmat, 2));
 % Computing ROC to determine Threshold
 Cparams = ComputeROC(Cparams, Fdata, NFdata);
 
-%%{
+%{
 Thetas      = Cparams.Thetas;
 alphas      = Cparams.alphas;
 fmat        = Cparams.fmat;
 numFeatures = Cparams.numFeatures;
 thresh      = Cparams.thresh;
 
-save('Cparams.mat', 'Thetas', 'alphas', 'fmat', 'numFeatures', 'thresh');
+%%save('Cparams.mat', 'Thetas', 'alphas', 'fmat', 'numFeatures', 'thresh');
 %}
